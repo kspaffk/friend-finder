@@ -1,0 +1,22 @@
+body {
+    background-image: url('../img/friends.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #403931;
+}
+
+a {
+    font-family: 'Fredericka the Great', cursive;
+}
+
+.img-header {
+    padding: 30px 30px;
+    margin: 0px 0px;
+    font-size: 75px;
+    text-align: center;
+    font-family: 'Fredericka the Great', cursive;
+}
+
+.card {
+    margin-top: 300px;
+}
