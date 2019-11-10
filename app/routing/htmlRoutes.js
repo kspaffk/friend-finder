@@ -1,20 +1,25 @@
 const path = require('path');
+const hbs = require('express-handlebars');
 const data = require('../data/friends');
+
+expressApp.engine('handlebars', hbs({ defaultLayout: 'main' }));
+expressApp.set('view engine', 'handlebars');
 
 module.exports = function(expressApp) {
     expressApp.get('/survey', function(req, res) {
-        res.sendFile(path.join(__dirname, '../public/survey.html'));
+        return res.render('survey', { questions: data.questions });
+
     });
 
     expressApp.get('/', function(req, res) {
-        res.sendFile(path.join(__dirname, '../public/home.html'));
+        return res.render('home');
     });
     
     expressApp.get('/img/friends.jpg', function(req, res) {
-        res.sendFile(path.join(__dirname, '../public/img/friends.jpg'));
+        res.sendFile(path.join(__dirname, '../../views/img/friends.jpg'));
     });
     
     expressApp.get('/css/styles.css', function(req, res) {
-        res.sendFile(path.join(__dirname, '../public/css/styles.css'));
+        res.sendFile(path.join(__dirname, '../../views/css/styles.css'));
     });
 }

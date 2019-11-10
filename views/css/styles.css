@@ -2,7 +2,7 @@ body {
     background-image: url('../img/friends.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    background-color: #403931;
+    background-color: #424242;
 }
 
 a {
@@ -17,6 +17,10 @@ a {
     font-family: 'Fredericka the Great', cursive;
 }
 
-.card {
+.card-home {
     margin-top: 300px;
+}
+
+.card {
+    background-color: rgba(187, 222, 251, .85)
 }
