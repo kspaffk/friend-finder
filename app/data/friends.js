@@ -25,7 +25,9 @@ function Person(name, photo, scores) {
     }
 }
 
-var people = [];
+var initPerson = new Person("Scott Farkus", "https://static.adweek.com/adweek.com-prod/wp-content/uploads/files/blogs/scut-farkus-hed-2016.jpg", [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]);
+
+var people = [initPerson];
 var questions = [
     "You spend way too much time curled up in a ball crying.",
     "You find time to shower every day.",
