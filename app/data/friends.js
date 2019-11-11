@@ -5,14 +5,13 @@ function Person(name, photo, scores) {
 
     this.calcSurveyDiff = function(people) {
         var prevScoreDiff = 50;
-        var currScoreDiff = 0;
         var friendFound;
         people.forEach(person => {
+            var currScoreDiff = 0;
             if (person.name != this.name) {
-                for (var i = 0; i < person.scores.length; ++i) {
-                    scoreDiff += Math.abs(person.scores[i] - this.scores[i]);
+                for (var i = 0; i < person.scores.length; ++i) {                   
+                    currScoreDiff += Math.abs(person.scores[i] - this.scores[i]);
                 }
-                console.log(person.name + " has score of " + scoreDiff)
                 if (prevScoreDiff > currScoreDiff) {
                     prevScoreDiff = currScoreDiff;
                     friendFound = person;
@@ -40,4 +39,4 @@ var questions = [
     "You have had a job since you were 21."
 ];
 
-module.exports = { people, questions };
+module.exports = { Person, people, questions };

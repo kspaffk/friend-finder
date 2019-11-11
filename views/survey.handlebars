@@ -2,23 +2,109 @@
     <div class="col s12 m10 l8 offset-m1 offset-l2">
         <div class="card card-survey">
             <div class="card-content">
-                    {{#each questions }}
-                    <div>{{ this }}</div>
-                    <div class="input-field col s12">
-                        <select class="browser-default" required>
-                            <option value="" disabled selected>Choose your option</option>
-                            <option value="1">1 - Never</option>
-                            <option value="2">2 - Hardly Ever</option>
-                            <option value="3">3 - Somtimes</option>
-                            <option value="4">4 - Most of the time</option>
-                            <option value="5">5 - Always</option>
-                        </select>
+                <div class="row">
+                    <div class="col s12">
+                        <form>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <label class="black-text active" for="name">Name</label>
+                                    <input id="name" type="text">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <label class="black-text active" for="pic">URL for Picture</label>
+                                    <input id="pic" type="text">
+                                </div>
+                            </div>
+                            {{#each questions }}
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <label class="black-text select-label">{{ this }}</label>
+                                </div>
+                            <div class="input-field col s12">
+                                <select class="browser-default q{{@index}}">
+                                    <option value="" disabled selected>Choose your option</option>
+                                    <option value="1">1 - Never</option>
+                                    <option value="2">2 - Hardly Ever</option>
+                                    <option value="3">3 - Somtimes</option>
+                                    <option value="4">4 - Most of the time</option>
+                                    <option value="5">5 - Always</option>
+                                </select>
+                            </div>
+                            </div>
+                            {{/each}}
+                            <div class="card-action center-align">
+                                <a class="waves-effect waves-light btn-large blue yellow-text find-btn"
+                                    href="/survey">Find My Friend</a>
+                            </div>
+                        </form>
                     </div>
-                    {{/each}}
-                <div class="card-action center-align">
-                    <a class="waves-effect waves-light btn-large blue yellow-text find-btn" href="/survey">Submit</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div id="invalid-input" class="modal">
+  <div class="modal-content">
+    <p></p>
+    <button id="modal-btn">Close</button>
+  </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $('.find-btn').on('click', function(event) {
+            event.preventDefault();
+
+            if (!validateTextFields() || !validateSelectFields()) {
+                $('.modal-content p').text("You must enter data in all fields!")
+                $('#invalid-input').show();
+                $('#modal-btn').on('click', function(event) {
+                    $('#invalid-input').hide();
+                })
+            } else {
+                var scores = [];
+                for (var i = 0; i < 10; i++) {
+                    scores.push($('.q' + i).val());
+                }
+
+                var newPerson = {
+                    name: $('#name').val(),
+                    photo: $('#pic').val(),
+                    scores: scores
+                }
+                
+                $.post('api/friends', newPerson).then(function(data) {
+                    console.log(`New person added!\n${JSON.stringify(data)}`);
+                    var friendHTML = `<h1 class="friend-header">Your New Friend!</h1>
+                            <p class="friend-name">${data.name}</p>
+                            <img class="friend-img" src="${data.photo}" alt="">`;
+                    
+                    $('.modal-content p').html(friendHTML);
+                    $('#invalid-input').show();
+                    $('#modal-btn').on('click', function(event) {
+                        $('#invalid-input').hide();
+                    });
+                });
+            }
+
+            function validateTextFields() {
+                if ($('#name').val() === "") {
+                    return false;
+                } else if ($('#pic').val() === "") {
+                    return false;
+                }
+                return true;
+            }
+
+            function validateSelectFields() {
+                for (var i = 0; i < 10; i++) {
+                    if ($('.q' + i).val() === null) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        });
+    });
+</script>
