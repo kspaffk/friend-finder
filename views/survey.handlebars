@@ -27,7 +27,7 @@
                                     <option value="" disabled selected>Choose your option</option>
                                     <option value="1">1 - Never</option>
                                     <option value="2">2 - Hardly Ever</option>
-                                    <option value="3">3 - Somtimes</option>
+                                    <option value="3">3 - Sometimes</option>
                                     <option value="4">4 - Most of the time</option>
                                     <option value="5">5 - Always</option>
                                 </select>
@@ -75,7 +75,6 @@
                 }
                 
                 $.post('api/friends', newPerson).then(function(data) {
-                    console.log(`New person added!\n${JSON.stringify(data)}`);
                     var friendHTML = `<h1 class="friend-header">Your New Friend!</h1>
                             <p class="friend-name">${data.name}</p>
                             <img class="friend-img" src="${data.photo}" alt="">`;
@@ -84,6 +83,7 @@
                     $('#invalid-input').show();
                     $('#modal-btn').on('click', function(event) {
                         $('#invalid-input').hide();
+                        window.location = "/";
                     });
                 });
             }

@@ -25,7 +25,7 @@ function Person(name, photo, scores) {
     }
 }
 
-var initPerson = new Person("Scott Farkus", "https://static.adweek.com/adweek.com-prod/wp-content/uploads/files/blogs/scut-farkus-hed-2016.jpg", [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]);
+var initPerson = new Person("Scut Farkus", "https://static.adweek.com/adweek.com-prod/wp-content/uploads/files/blogs/scut-farkushed-2016.jpg", [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]);
 
 var people = [initPerson];
 var questions = [
